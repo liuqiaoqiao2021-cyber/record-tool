@@ -3,26 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0f172a" />
-  <title>个人记录工具</title>
+  <meta name="theme-color" content="#5b6cff" />
+  <title>个人双分区记录工具</title>
   <style>
     :root {
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #0f172a;
-      --muted: #64748b;
-      --line: #e2e8f0;
-      --primary: #0f172a;
-      --primary-2: #1e293b;
-      --danger: #b91c1c;
+      --bg1: #f7f8ff;
+      --bg2: #eefaf7;
+      --card: rgba(255, 255, 255, 0.82);
+      --card-strong: rgba(255, 255, 255, 0.96);
+      --text: #1f2a44;
+      --muted: #7b879c;
+      --line: rgba(148, 163, 184, 0.20);
+      --primary: #5b6cff;
+      --primary-2: #7c5cff;
+      --idea: #8b5cf6;
+      --idea-soft: rgba(139, 92, 246, 0.10);
+      --exp: #14b8a6;
+      --exp-soft: rgba(20, 184, 166, 0.10);
+      --danger: #dc2626;
       --danger-bg: #fef2f2;
+      --shadow: 0 10px 30px rgba(91, 108, 255, 0.10);
     }
 
     * { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top left, rgba(91, 108, 255, 0.16), transparent 30%),
+        radial-gradient(circle at top right, rgba(20, 184, 166, 0.14), transparent 30%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 100%);
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
       -webkit-tap-highlight-color: transparent;
@@ -34,60 +44,134 @@
     }
 
     .wrap {
-      max-width: 760px;
+      max-width: 860px;
       margin: 0 auto;
     }
 
     .card {
       background: var(--card);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
       padding: 16px;
       margin-bottom: 14px;
     }
 
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
     .title {
-      font-size: 24px;
-      font-weight: 700;
-      margin: 0 0 8px;
+      font-size: 26px;
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--exp) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .clock {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-      margin: 6px 0 10px;
+      font-size: 24px;
+      font-weight: 800;
+      color: #0f172a;
     }
 
-    .sub {
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .stat-box {
+      background: var(--card-strong);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .stat-label {
+      font-size: 13px;
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
+      margin-bottom: 6px;
     }
 
-    .label {
-      font-size: 15px;
-      font-weight: 600;
-      margin: 0 0 10px;
+    .stat-value {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+
+    .pill-idea {
+      color: var(--idea);
+      background: var(--idea-soft);
+      border-color: rgba(139, 92, 246, 0.18);
+    }
+
+    .pill-exp {
+      color: #0f766e;
+      background: var(--exp-soft);
+      border-color: rgba(20, 184, 166, 0.18);
     }
 
     textarea {
       width: 100%;
-      min-height: 110px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
+      min-height: 120px;
+      border: 1px solid rgba(129, 140, 248, 0.18);
+      border-radius: 16px;
       padding: 14px;
       font-size: 16px;
-      line-height: 1.5;
+      line-height: 1.55;
       outline: none;
       resize: vertical;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.90);
+      color: var(--text);
+      transition: 0.18s ease;
     }
 
     textarea:focus {
-      border-color: #94a3b8;
-      box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15);
+      border-color: rgba(91, 108, 255, 0.50);
+      box-shadow: 0 0 0 4px rgba(91, 108, 255, 0.12);
+      background: rgba(255, 255, 255, 0.98);
     }
 
     .row {
@@ -97,73 +181,65 @@
       margin-top: 12px;
     }
 
-    button {
-      appearance: none;
-      border: none;
-      border-radius: 14px;
-      min-height: 48px;
-      padding: 12px 14px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .btn-secondary {
-      background: #eef2ff;
-      color: #1e293b;
-      border: 1px solid #dbeafe;
-    }
-
-    .btn-light {
-      background: #f8fafc;
-      color: #1e293b;
-      border: 1px solid var(--line);
-    }
-
-    .meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 6px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      color: #334155;
-      background: #f8fafc;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 7px 10px;
-    }
-
     .toolbar {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
+      margin-top: 12px;
+    }
+
+    button {
+      appearance: none;
+      border: none;
+      border-radius: 16px;
+      min-height: 48px;
+      padding: 12px 14px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    button:active { transform: scale(0.98); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+      color: #fff;
+      box-shadow: 0 10px 18px rgba(91, 108, 255, 0.22);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #f0fdfa 0%, #eef2ff 100%);
+      color: #1e293b;
+      border: 1px solid rgba(125, 211, 252, 0.45);
+    }
+
+    .btn-light {
+      background: rgba(255, 255, 255, 0.88);
+      color: #1e293b;
+      border: 1px solid var(--line);
+    }
+
+    .list-section { margin-top: 4px; }
+
+    .list-title {
+      font-size: 17px;
+      font-weight: 800;
+      margin: 0 0 10px;
     }
 
     .list {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-top: 12px;
     }
 
     .item {
-      border: 1px solid var(--line);
-      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: 18px;
       padding: 14px;
-      background: #fff;
+      background: var(--card-strong);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
     }
 
     .item-top {
@@ -177,7 +253,7 @@
       white-space: pre-wrap;
       word-break: break-word;
       font-size: 16px;
-      line-height: 1.55;
+      line-height: 1.6;
       margin-bottom: 8px;
     }
 
@@ -187,33 +263,30 @@
     }
 
     .delete-btn {
-      background: var(--danger-bg);
+      background: linear-gradient(135deg, #fff1f2 0%, #fef2f2 100%);
       color: var(--danger);
       border: 1px solid #fecaca;
       min-height: 38px;
       padding: 8px 12px;
       font-size: 14px;
       flex-shrink: 0;
+      font-weight: 700;
     }
 
     .empty {
       text-align: center;
       color: var(--muted);
       font-size: 15px;
-      padding: 14px 8px;
+      padding: 16px 8px;
+      background: rgba(255,255,255,0.55);
+      border: 1px dashed rgba(148, 163, 184, 0.28);
+      border-radius: 16px;
     }
 
-    .tip {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 8px;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 560px) {
-      .title { font-size: 22px; }
-      .clock { font-size: 24px; }
-      .row, .toolbar { grid-template-columns: 1fr; }
+    @media (max-width: 720px) {
+      .grid-2, .stats, .row, .toolbar { grid-template-columns: 1fr; }
+      .title { font-size: 23px; }
+      .clock { font-size: 22px; }
       .item-top { flex-direction: column; }
       .delete-btn { width: 100%; }
     }
@@ -222,41 +295,72 @@
 <body>
   <div class="wrap">
     <div class="card">
-      <h1 class="title">个人记录工具</h1>
-      <div id="clock" class="clock">--:--:--</div>
-      <div class="meta">
-        <div class="badge">本地保存</div>
-        <div class="sub">记录总数：<span id="count">0</span></div>
+      <div class="hero">
+        <h1 class="title">个人双分区记录工具</h1>
+        <div id="clock" class="clock">--:--:--</div>
       </div>
-      <div class="tip">当前版本为手机版本，数据保存在当前浏览器本地。导出时将按时间正序排列。</div>
-    </div>
-
-    <div class="card">
-      <div class="label">新增记录</div>
-      <textarea id="textInput" placeholder="请输入你想记录的内容……"></textarea>
-      <div class="row">
-        <button id="saveBtn" class="btn-primary">保存记录</button>
-        <button id="clearInputBtn" class="btn-light">清空输入</button>
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-label">Idea 记录数</div>
+          <div id="ideaCount" class="stat-value">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">实验记录数</div>
+          <div id="experimentCount" class="stat-value">0</div>
+        </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="label">操作区</div>
-      <div class="toolbar">
-        <button id="exportBtn" class="btn-secondary">导出 Excel 兼容文件</button>
-        <button id="clearAllBtn" class="btn-light">清空全部记录</button>
+    <div class="grid-2">
+      <div class="card">
+        <div class="section-head">
+          <h2 class="section-title">Idea 记录</h2>
+          <span class="pill pill-idea">灵感专区</span>
+        </div>
+        <textarea id="ideaInput" placeholder="记录你突然想到的想法、点子、计划……"></textarea>
+        <div class="row">
+          <button id="saveIdeaBtn" class="btn-primary">保存 Idea</button>
+          <button id="clearIdeaInputBtn" class="btn-light">清空输入</button>
+        </div>
+        <div class="toolbar">
+          <button id="exportIdeaBtn" class="btn-secondary">导出 Idea</button>
+          <button id="clearIdeaBtn" class="btn-light">清空 Idea</button>
+        </div>
       </div>
-      <div class="tip">说明：为了保证 iPhone 上能直接保存并导入 Excel，这里导出的是 CSV 文件，Excel 可以直接打开。</div>
+
+      <div class="card">
+        <div class="section-head">
+          <h2 class="section-title">实验记录</h2>
+          <span class="pill pill-exp">回溯专区</span>
+        </div>
+        <textarea id="experimentInput" placeholder="记录实验步骤、条件、观察结果、问题……"></textarea>
+        <div class="row">
+          <button id="saveExperimentBtn" class="btn-primary">保存实验记录</button>
+          <button id="clearExperimentInputBtn" class="btn-light">清空输入</button>
+        </div>
+        <div class="toolbar">
+          <button id="exportExperimentBtn" class="btn-secondary">导出实验记录</button>
+          <button id="clearExperimentBtn" class="btn-light">清空实验记录</button>
+        </div>
+      </div>
     </div>
 
-    <div class="card">
-      <div class="label">历史记录</div>
-      <div id="list" class="list"></div>
+    <div class="grid-2">
+      <div class="card list-section">
+        <h3 class="list-title">Idea 历史</h3>
+        <div id="ideaList" class="list"></div>
+      </div>
+
+      <div class="card list-section">
+        <h3 class="list-title">实验历史</h3>
+        <div id="experimentList" class="list"></div>
+      </div>
     </div>
   </div>
 
   <script>
-    const STORAGE_KEY = 'mobile_record_tool_v1';
+    const IDEA_KEY = 'mobile_record_tool_ideas_v1';
+    const EXPERIMENT_KEY = 'mobile_record_tool_experiments_v1';
 
     function pad(n) {
       return String(n).padStart(2, '0');
@@ -273,9 +377,18 @@
       return s;
     }
 
-    function loadRecords() {
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function loadRecords(key) {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
+        const raw = localStorage.getItem(key);
         const parsed = raw ? JSON.parse(raw) : [];
         return Array.isArray(parsed) ? parsed : [];
       } catch (e) {
@@ -283,27 +396,8 @@
       }
     }
 
-    function saveRecords(records) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-    }
-
-    let records = loadRecords();
-
-    const clockEl = document.getElementById('clock');
-    const countEl = document.getElementById('count');
-    const listEl = document.getElementById('list');
-    const textInput = document.getElementById('textInput');
-    const saveBtn = document.getElementById('saveBtn');
-    const exportBtn = document.getElementById('exportBtn');
-    const clearInputBtn = document.getElementById('clearInputBtn');
-    const clearAllBtn = document.getElementById('clearAllBtn');
-
-    function tickClock() {
-      clockEl.textContent = formatDateTime(new Date());
-    }
-
-    function updateCount() {
-      countEl.textContent = String(records.length);
+    function saveRecords(key, records) {
+      localStorage.setItem(key, JSON.stringify(records));
     }
 
     function sortDesc(arr) {
@@ -314,12 +408,36 @@
       return [...arr].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
     }
 
-    function render() {
-      const view = sortDesc(records);
-      updateCount();
+    function buildId() {
+      return (window.crypto && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : String(Date.now()) + Math.random().toString(16).slice(2);
+    }
 
+    let ideaRecords = loadRecords(IDEA_KEY);
+    let experimentRecords = loadRecords(EXPERIMENT_KEY);
+
+    const clockEl = document.getElementById('clock');
+    const ideaCountEl = document.getElementById('ideaCount');
+    const experimentCountEl = document.getElementById('experimentCount');
+    const ideaInput = document.getElementById('ideaInput');
+    const experimentInput = document.getElementById('experimentInput');
+    const ideaListEl = document.getElementById('ideaList');
+    const experimentListEl = document.getElementById('experimentList');
+
+    function tickClock() {
+      clockEl.textContent = formatDateTime(new Date());
+    }
+
+    function updateCounts() {
+      ideaCountEl.textContent = String(ideaRecords.length);
+      experimentCountEl.textContent = String(experimentRecords.length);
+    }
+
+    function renderList(listEl, records, type) {
+      const view = sortDesc(records);
       if (view.length === 0) {
-        listEl.innerHTML = '<div class="empty">暂时还没有记录。</div>';
+        listEl.innerHTML = '<div class="empty">暂无内容</div>';
         return;
       }
 
@@ -330,60 +448,77 @@
               <div class="item-content">${escapeHtml(item.content)}</div>
               <div class="item-time">${formatDateTime(item.created_at)}</div>
             </div>
-            <button class="delete-btn" data-id="${item.id}">删除</button>
+            <button class="delete-btn" data-type="${type}" data-id="${item.id}">删除</button>
           </div>
         </div>
       `).join('');
+    }
 
+    function render() {
+      updateCounts();
+      renderList(ideaListEl, ideaRecords, 'idea');
+      renderList(experimentListEl, experimentRecords, 'experiment');
       document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const id = btn.getAttribute('data-id');
-          records = records.filter(r => r.id !== id);
-          saveRecords(records);
+          const type = btn.getAttribute('data-type');
+          if (type === 'idea') {
+            ideaRecords = ideaRecords.filter(r => r.id !== id);
+            saveRecords(IDEA_KEY, ideaRecords);
+          } else {
+            experimentRecords = experimentRecords.filter(r => r.id !== id);
+            saveRecords(EXPERIMENT_KEY, experimentRecords);
+          }
           render();
         });
       });
     }
 
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    function saveRecord() {
-      const content = textInput.value.trim();
+    function saveOne(type) {
+      const input = type === 'idea' ? ideaInput : experimentInput;
+      const key = type === 'idea' ? IDEA_KEY : EXPERIMENT_KEY;
+      const content = input.value.trim();
       if (!content) {
         alert('请输入内容后再保存。');
         return;
       }
-
-      const id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2);
-      const item = {
-        id,
-        content,
-        created_at: new Date().toISOString()
-      };
-
-      records.push(item);
-      saveRecords(records);
-      textInput.value = '';
+      const item = { id: buildId(), content, created_at: new Date().toISOString() };
+      if (type === 'idea') {
+        ideaRecords.push(item);
+        saveRecords(key, ideaRecords);
+      } else {
+        experimentRecords.push(item);
+        saveRecords(key, experimentRecords);
+      }
+      input.value = '';
       render();
     }
 
-    function exportCsv() {
+    function clearAll(type) {
+      if (type === 'idea') {
+        if (!ideaRecords.length) return;
+        if (!confirm('确定清空全部 Idea 记录吗？')) return;
+        ideaRecords = [];
+        saveRecords(IDEA_KEY, ideaRecords);
+      } else {
+        if (!experimentRecords.length) return;
+        if (!confirm('确定清空全部实验记录吗？')) return;
+        experimentRecords = [];
+        saveRecords(EXPERIMENT_KEY, experimentRecords);
+      }
+      render();
+    }
+
+    function exportCsv(type) {
+      const records = type === 'idea' ? ideaRecords : experimentRecords;
       const ordered = sortAsc(records);
       if (ordered.length === 0) {
         alert('当前没有记录可导出。');
         return;
       }
-
+      const categoryName = type === 'idea' ? 'Idea记录' : '实验记录';
       const header = ['序号', '记录时间', '记录内容', '记录ID'];
       const lines = [header.join(',')];
-
       ordered.forEach((item, idx) => {
         lines.push([
           idx + 1,
@@ -392,35 +527,32 @@
           escapeCsv(item.id)
         ].join(','));
       });
-
       const csv = '\uFEFF' + lines.join('\n');
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `个人记录导出_${formatDateTime(new Date()).replace(/[: ]/g, '_')}.csv`;
+      a.download = `${categoryName}_${formatDateTime(new Date()).replace(/[: ]/g, '_')}.csv`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
     }
 
-    saveBtn.addEventListener('click', saveRecord);
-    exportBtn.addEventListener('click', exportCsv);
-    clearInputBtn.addEventListener('click', () => { textInput.value = ''; });
-    clearAllBtn.addEventListener('click', () => {
-      if (!records.length) return;
-      const ok = confirm('确定要清空全部记录吗？此操作不可撤销。');
-      if (!ok) return;
-      records = [];
-      saveRecords(records);
-      render();
-    });
+    document.getElementById('saveIdeaBtn').addEventListener('click', () => saveOne('idea'));
+    document.getElementById('saveExperimentBtn').addEventListener('click', () => saveOne('experiment'));
+    document.getElementById('clearIdeaInputBtn').addEventListener('click', () => { ideaInput.value = ''; });
+    document.getElementById('clearExperimentInputBtn').addEventListener('click', () => { experimentInput.value = ''; });
+    document.getElementById('clearIdeaBtn').addEventListener('click', () => clearAll('idea'));
+    document.getElementById('clearExperimentBtn').addEventListener('click', () => clearAll('experiment'));
+    document.getElementById('exportIdeaBtn').addEventListener('click', () => exportCsv('idea'));
+    document.getElementById('exportExperimentBtn').addEventListener('click', () => exportCsv('experiment'));
 
-    textInput.addEventListener('keydown', (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
-        saveRecord();
-      }
+    ideaInput.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') saveOne('idea');
+    });
+    experimentInput.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') saveOne('experiment');
     });
 
     tickClock();
