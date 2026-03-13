@@ -115,6 +115,16 @@
       gap: 14px;
     }
 
+    .mobile-quick-nav {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      position: sticky;
+      top: calc(env(safe-area-inset-top) + 8px);
+      z-index: 20;
+      margin-bottom: 14px;
+    }
+
     .section-head {
       display: flex;
       align-items: center;
@@ -222,6 +232,14 @@
 
     .list-section { margin-top: 4px; }
 
+    .mobile-only {
+      display: none;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     .list-title {
       font-size: 17px;
       font-weight: 800;
@@ -289,6 +307,14 @@
       .clock { font-size: 22px; }
       .item-top { flex-direction: column; }
       .delete-btn { width: 100%; }
+      .mobile-quick-nav { display: grid; }
+      .mobile-only { display: block; }
+      .desktop-pair { grid-template-columns: 1fr; }
+    }
+      .title { font-size: 23px; }
+      .clock { font-size: 22px; }
+      .item-top { flex-direction: column; }
+      .delete-btn { width: 100%; }
     }
   </style>
 </head>
@@ -311,8 +337,13 @@
       </div>
     </div>
 
-    <div class="grid-2">
-      <div class="card">
+    <div class="mobile-quick-nav">
+      <button id="jumpToIdeaBtn" class="btn-primary">转到 Idea</button>
+      <button id="jumpToExperimentBtn" class="btn-secondary">转到实验</button>
+    </div>
+
+    <div class="grid-2 desktop-pair">
+      <div class="card" id="ideaSection">
         <div class="section-head">
           <h2 class="section-title">Idea 记录</h2>
           <span class="pill pill-idea">灵感专区</span>
@@ -328,7 +359,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" id="experimentSection">
         <div class="section-head">
           <h2 class="section-title">实验记录</h2>
           <span class="pill pill-exp">回溯专区</span>
@@ -345,13 +376,13 @@
       </div>
     </div>
 
-    <div class="grid-2">
-      <div class="card list-section">
+    <div class="grid-2 desktop-pair">
+      <div class="card list-section" id="ideaHistorySection">
         <h3 class="list-title">Idea 历史</h3>
         <div id="ideaList" class="list"></div>
       </div>
 
-      <div class="card list-section">
+      <div class="card list-section" id="experimentHistorySection">
         <h3 class="list-title">实验历史</h3>
         <div id="experimentList" class="list"></div>
       </div>
@@ -540,6 +571,14 @@
     }
 
     document.getElementById('saveIdeaBtn').addEventListener('click', () => saveOne('idea'));
+    document.getElementById('jumpToIdeaBtn').addEventListener('click', () => {
+      document.getElementById('ideaSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => ideaInput.focus(), 250);
+    });
+    document.getElementById('jumpToExperimentBtn').addEventListener('click', () => {
+      document.getElementById('experimentSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => experimentInput.focus(), 250);
+    });
     document.getElementById('saveExperimentBtn').addEventListener('click', () => saveOne('experiment'));
     document.getElementById('clearIdeaInputBtn').addEventListener('click', () => { ideaInput.value = ''; });
     document.getElementById('clearExperimentInputBtn').addEventListener('click', () => { experimentInput.value = ''; });
